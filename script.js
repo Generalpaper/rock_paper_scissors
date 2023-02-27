@@ -7,45 +7,77 @@ function getComputerChoice() {
 
 let playerscore = 0;
 let computerscore = 0;
+let playerSelection;
+let roundnum = 1;
+const result = document.querySelector("#result");
+const results = document.querySelector("#results");
+const playagain = document.querySelector("#playagain");
+const round = document.querySelector("#round");
+const buttons = document.querySelectorAll(".button");
 
 function rock() {
-    if (cc == "rock") {
-        document.getElementById("result").innerHTML = "Jethro played rock. Draw."
-    }
-    if (cc == "paper") {
-        document.getElementById("result").innerHTML = "Jethro played paper. Paper beats rock, you lose."
-    }
-    if (cc == "scissors") {
-        document.getElementById("result").innerHTML = "Jethro played scissors. Rock beats scissors, you win."
-    }
-}
-function paper() {
-    if (cc == "rock") {
-        document.getElementById("result").innerHTML = "Jethro played rock. Paper beats rock, you win."
-    }
-    if (cc == "paper") {
-        document.getElementById("result").innerHTML = "Jethro played paper. Draw."
-    }
-    if (cc == "scissors") {
-        document.getElementById("result").innerHTML = "Jethro played scissors. Scissors beats paper, you lose."
-    }
-}
-function scissors() {
-    if (cc == "rock") {
-        document.getElementById("result").innerHTML = "Jethro played rock. Rock beats scissors, you lose."
-    }
-    if (cc == "paper") {
-        document.getElementById("result").innerHTML = "Jethro played paper. Scissors beats paper, you win."
-    }
-    if (cc == "scissors") {
-        document.getElementById("result").innerHTML = "Jethro played scissors. Draw."
-        
-    }
+    playerSelection = "rock"
 }
 
-function playRound() {
-    for (let i = 0; i < 5; i++) {
-        let cc = getComputerChoice();
-        
-    }
+function paper() {
+    playerSelection = "paper"
 }
+
+function scissors() {
+    playerSelection = "scissors"
+}
+
+function playRound(playerSelection, computerSelection) {
+    if (playerSelection == computerSelection){
+        return "Draw"}
+    else if (computerSelection == "rock"){
+        if (playerSelection == "scissors") {
+            ++computerscore;
+            return `You lose! ${computerSelection} beats ${playerSelection}!`
+        }
+        else {
+            ++playerscore;
+            return `You win! ${playerSelection} beats ${computerSelection}!`
+        }}
+    else if (computerSelection == "paper"){
+        if (playerSelection == "rock") {
+            ++computerscore;
+            return `You lose! ${computerSelection} beats ${playerSelection}!`
+        }
+        else {
+            ++playerscore;
+            return `You win! ${playerSelection} beats ${computerSelection}!`
+        }}
+    else if (computerSelection == "scissors") {
+        if (playerSelection == "paper") {
+            ++computerscore;
+            return `You lose! ${computerSelection} beats ${playerSelection}!`
+        }
+        else {
+            ++playerscore;
+            return `You win! ${playerSelection} beats ${computerSelection}!`
+        }}
+    }
+    function game() {
+        result.textContent = playRound(playerSelection, getComputerChoice());
+        round.textContent = `Round: ${roundnum}`;
+        results.textContent = `Jethro vs Player ${computerscore}-${playerscore}`;
+        ++roundnum;
+    }
+
+if (roundnum > 5 && playerscore !== computerscore)  {
+    (playerscore > computerscore) 
+    ? results.textContent = `You win ${computerscore}-${playerscore}.`
+    : results.textContent = `You lose ${computerscore}-${playerscore}.`
+    playagain.textContent = "Game complete! To play on, continue clicking. To quit, refresh this page."
+}
+
+buttons.forEach(button => button.addEventListener("click", () => {
+game();
+if (roundnum > 5 && playerscore !== computerscore)  {
+    (playerscore > computerscore) 
+    ? results.textContent = `You win ${computerscore}-${playerscore}.`
+    : results.textContent = `You lose ${computerscore}-${playerscore}.`
+    playagain.textContent = "Game complete! To play on, continue clicking. To restart, refresh this page."
+}
+}))
