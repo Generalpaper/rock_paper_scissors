@@ -16,46 +16,47 @@ const round = document.querySelector("#round");
 const buttons = document.querySelectorAll(".button");
 
 function rock() {
-    playerSelection = "rock"
+    playerSelection = "rock";
 }
 
 function paper() {
-    playerSelection = "paper"
+    playerSelection = "paper";
 }
 
 function scissors() {
-    playerSelection = "scissors"
+    playerSelection = "scissors";
 }
 
 function playRound(playerSelection, computerSelection) {
     if (playerSelection == computerSelection){
-        return "Draw"}
+        return "Draw";
+    }
     else if (computerSelection == "rock"){
         if (playerSelection == "scissors") {
             ++computerscore;
-            return `You lose! ${computerSelection} beats ${playerSelection}!`
+            return `You lose! ${computerSelection} beats ${playerSelection}!`;
         }
         else {
             ++playerscore;
-            return `You win! ${playerSelection} beats ${computerSelection}!`
+            return `You win! ${playerSelection} beats ${computerSelection}!`;
         }}
     else if (computerSelection == "paper"){
         if (playerSelection == "rock") {
             ++computerscore;
-            return `You lose! ${computerSelection} beats ${playerSelection}!`
+            return `You lose! ${computerSelection} beats ${playerSelection}!`;
         }
         else {
             ++playerscore;
-            return `You win! ${playerSelection} beats ${computerSelection}!`
+            return `You win! ${playerSelection} beats ${computerSelection}!`;
         }}
     else if (computerSelection == "scissors") {
         if (playerSelection == "paper") {
             ++computerscore;
-            return `You lose! ${computerSelection} beats ${playerSelection}!`
+            return `You lose! ${computerSelection} beats ${playerSelection}!`;
         }
         else {
             ++playerscore;
-            return `You win! ${playerSelection} beats ${computerSelection}!`
+            return `You win! ${playerSelection} beats ${computerSelection}!`;
         }}
     }
     function game() {
@@ -65,19 +66,13 @@ function playRound(playerSelection, computerSelection) {
         ++roundnum;
     }
 
-if (roundnum > 5 && playerscore !== computerscore)  {
-    (playerscore > computerscore) 
-    ? results.textContent = `You win ${computerscore}-${playerscore}.`
-    : results.textContent = `You lose ${computerscore}-${playerscore}.`
-    playagain.textContent = "Game complete! To play on, continue clicking. To quit, refresh this page."
-}
-
 buttons.forEach(button => button.addEventListener("click", () => {
 game();
-if (roundnum > 5 && playerscore !== computerscore)  {
-    (playerscore > computerscore) 
-    ? results.textContent = `You win ${computerscore}-${playerscore}.`
-    : results.textContent = `You lose ${computerscore}-${playerscore}.`
-    playagain.textContent = "Game complete! To play on, continue clicking. To restart, refresh this page."
+if (roundnum > 5)  {
+    results.textContent = (playerscore > computerscore) 
+    ? `You win ${computerscore}-${playerscore}.`
+    : (playerscore < computerscore ) ? `You lose ${computerscore}-${playerscore}.`
+    : `It's a ${computerscore}-${playerscore} draw.`;
+    playagain.textContent = "Game complete! To play on, continue clicking. To restart, refresh this page.";
 }
 }))
